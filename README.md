@@ -1,56 +1,57 @@
-## DATE:
-## EXN0:05 LU Decomposition 
+### DATE:
+# EX.NO:6 Gaussian Elimination
 
 ## AIM:
-To write a program to find the LU Decomposition of a matrix.
+To write a program to find the solution of a matrix using Gaussian Elimination.
 
 ## Equipments Required:
 1. Hardware – PCs
 2. Anaconda – Python 3.7 Installation / Moodle-Code Runner
 
-## Algorithm:
-1. Define the package as scipy.linalg import lu.
-2. Get input from user and print L and U matrix by 'print' .
-3. Define a package as "from scipy.linalg import lu_factor, lu_solve" and create the variable as 'X' include the package in that variable.
-4. print the variable 'X'
+## Algorithm
+1. Get the matrix from user.
+2. Using numpy library we solve the matrix using gaussian elimination with partial pivoting.
+3. Print the result matrices.
+4. End the program.
 
 ## Program:
-### (i) To find the L and U matrix
-### Program to find L and U matrix using LU decomposition.
 ```
+/*
+Program to solve a matrix using Gaussian elimination without partial pivoting.
+Developed by: SAI KUMAR S
+RegisterNumber: 212222240087
+*/
 
 import numpy as np
-from scipy.linalg import lu
-A=np.array(eval(input()))
-P,L,U=lu(A)
-print(L)
-print(U)
+import sys
+n=int(input())
+a=np.zeros((n,n+1))
+x=np.zeros(n)
+for i in range(n):
+    for j in range(n+1):
+        a[i][j]=float(input())
+        
+for i in range(n):
+    if a[i][i]==0.0:
+        sys.exit("divide by zero detected!")
+    for j in range (i+1,n):
+        ratio=a[j][i]/a[i][i]
+        for k in range(n+1):
+            a[j][k]=a[j][k]-ratio*a[i][k]
+x[n-1]=a[n-1][n]/a[n-1][n-1]
+for i in range(n-1,-1,-1):
+    x[i]=a[i][n]
+    for j in range(i+1,n):
+        x[i]=x[i]-a[i][j]*x[j]
+    x[i]=x[i]/a[i][i]
+for i in range(n):
+    print('X%d = %0.2f' %(i,x[i]),end=' ')
+
 ```
-## (ii) To find the LU Decomposition of a matrix
 
-## Program to solve a matrix using LU decomposition.
-## Developed by: SAI KUMAR S
-## RegisterNumber: 212222240087
+## Output:
+![image](https://github.com/user-attachments/assets/00e788c1-af63-4d77-b2f6-aa55658613ba)
 
-
-```
-
-import numpy as np
-from scipy.linalg import lu_factor,lu_solve
-A=np.array(eval(input()))
-B=np.array(eval(input()))
-lu,piv=lu_factor(A)
-x=lu_solve((lu,piv),B)
-print(x)
-```
-
-## Output 01:
-
-![Screenshot 2024-09-28 084640](https://github.com/user-attachments/assets/2bb0e5d4-3427-4458-babe-4d2fe4aa1241)
-
-
-## Output 02:
-![Screenshot 2024-09-28 084658](https://github.com/user-attachments/assets/4465e7c2-b59f-4635-a716-f56eddf0fa78)
 ## Result:
-Thus the program to find the LU Decomposition of a matrix is written and verified using python programming.
+Thus the program to find the solution of a matrix using Gaussian Elimination is written and verified using python programming.
 
